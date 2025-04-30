@@ -1,0 +1,33 @@
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+
+const Result = () => {
+    const location = useLocation();
+    const { score, totalQuestions, correctAnswers, incorrectAnswers, explanations } = location.state || {};
+
+    return (
+        <div className="result-container">
+            <h1 className="text-2xl font-bold">Quiz Results</h1>
+            <div className="score-summary">
+                <p className="text-lg">Your Score: {score} / {totalQuestions}</p>
+                <p className="text-lg">Correct Answers: {correctAnswers}</p>
+                <p className="text-lg">Incorrect Answers: {incorrectAnswers}</p>
+            </div>
+            <div className="explanations">
+                <h2 className="text-xl font-semibold">Explanations</h2>
+                <ul>
+                    {explanations && explanations.map((explanation, index) => (
+                        <li key={index} className="my-2">
+                            <p>{explanation.question}</p>
+                            <p><strong>Correct Answer:</strong> {explanation.correctAnswer}</p>
+                            <p><strong>Your Answer:</strong> {explanation.userAnswer}</p>
+                            <p>{explanation.explanation}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+export default Result;
